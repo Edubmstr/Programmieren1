@@ -1,10 +1,10 @@
-/*package Neu;
+package Neu;
 
 public class Location {
     public String city;
     public String street;
-    public int postcode = 0;
-    public int number = 0;
+    public int postcode;
+    public int number;
 
     public Location(String city, int postcode, String street, int number){
         this.city = city;
@@ -18,4 +18,4 @@ public class Location {
     }
 }
 
- */
+

@@ -1,4 +1,4 @@
-/*package Neu;
+package Neu;
 
 public class Main {
     public static void main (String[] args){
@@ -39,7 +39,7 @@ public class Main {
         dhbw.addStudent(student6);
         dhbw.removeStudent(student6);
         System.out.println(dhbw.students);
-        System.out.println(student1.getUniversity());
+        System.out.println(student1.getUniversityName());
         System.out.println(dhbwloc);
         System.out.println(Student.prevStudent);
         System.out.println(student4.PREV_STUDENT);
@@ -59,4 +59,4 @@ public class Main {
     }
 }
 
- */
+
