@@ -25,10 +25,6 @@ public class Storage implements Sorting {
         product.changeStock(change);
     }
 
-    public void newStock(Product product, int amount){
-        product.changeStock(-amount);
-    }
-
     @Override
     public void sortStock(){
         for (int i = 1; i < stock.size(); i++) {

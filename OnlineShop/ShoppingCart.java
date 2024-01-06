@@ -95,7 +95,7 @@ public class ShoppingCart {
                 konto.payOut(this.sumCart());
             }
             for (Product product : products) {
-                this.storage.changeStock(product, product.getAmount());
+                this.storage.changeStock(product, -(product.getAmount()));
             }
             System.out.println("Order succesfully created! Thank you " + konto.getName() + " for your oder!");
         } catch (InsufficientFundsException e) {

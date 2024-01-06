@@ -66,7 +66,7 @@ public abstract class Product {
     }
 
     public void changeStock(int change){
-        this.stock -= change;
+        this.stock += change;
     }
 
     private void setAvailable(){
