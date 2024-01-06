@@ -40,7 +40,7 @@ public class ShoppingCart {
     }
 
     public ArrayList<Product> getProducts(){
-        return this.products; //maybe umschreiben damit amount mitreinkommt
+        return this.products;
     }
 
     public void printAllProducts(){
