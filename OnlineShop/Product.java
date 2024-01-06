@@ -69,6 +69,10 @@ public abstract class Product {
         this.stock += change;
     }
 
+    public int getStock(){
+        return this.stock;
+    }
+
     private void setAvailable(){
         if(this.stock > getAmount()){
             this.available = true;

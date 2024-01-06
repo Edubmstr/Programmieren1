@@ -82,10 +82,13 @@ public class ShoppingCart {
             try{
                 storage.getAvailibility(product);
             }catch (NoStockException e){
-                System.out.println("Order could not be processed: Product " + product + " not available");
-                System.out.println("Remove Product from Cart");
-                this.priceAfterDiscount -= product.getPrice();
-                return;
+                if((product.getStock() - product.getAmount()) == -1){
+                    System.out.println("Order could not be processed: Product " + product + " not available");
+                    System.out.println("Remove Product from Cart");
+                }else if(product.getStock() - product.getAmount() < -1){
+                    System.out.println("Vom Artikel " + product + " fehlen " + (product.getAmount() - product.getStock()) + " Stück.");
+                }
+                this.priceAfterDiscount -= product.getPrice() * product.getAmount();
             }
         }
         try{
