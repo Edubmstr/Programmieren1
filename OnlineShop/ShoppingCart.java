@@ -43,6 +43,12 @@ public class ShoppingCart {
         return this.products; //maybe umschreiben damit amount mitreinkommt
     }
 
+    public void printAllProducts(){
+        for (Product product : products){
+            System.out.println(product + " Menge: " + product.getAmount());
+        }
+    }
+
     public Product getProduct(int id){
         for(Product product : products){
             if(product.getID() == id){
@@ -86,7 +92,7 @@ public class ShoppingCart {
                     System.out.println("Order could not be processed: Product " + product + " not available");
                     System.out.println("Remove Product from Cart");
                 }else if(product.getStock() - product.getAmount() < -1){
-                    System.out.println("Vom Artikel " + product + " fehlen " + (product.getAmount() - product.getStock()) + " Stück.");
+                    System.out.println("Product " + product + " has missing stock of " + (product.getAmount() - product.getStock()) + " pieces.");
                 }
                 this.priceAfterDiscount -= product.getPrice() * product.getAmount();
             }
