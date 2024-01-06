@@ -73,7 +73,7 @@ public class ShoppingCart {
         this.priceAfterDiscount += (product.getPrice() * product.getAmount()) * (1 - (discountPercentage / 100));
     }
 
-    private double getNewPrice(){
+    public double getNewPrice(){
         return priceAfterDiscount;
     }
 
