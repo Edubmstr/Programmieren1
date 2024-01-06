@@ -6,7 +6,7 @@ import Bank.Konto;
 import java.util.ArrayList;
 
 public class ShoppingCart {
-    private ArrayList<Product> products = new ArrayList<>();
+    private final ArrayList<Product> products = new ArrayList<>();
     private boolean discount = false;
     private double discountPercentage;
 
@@ -45,7 +45,7 @@ public class ShoppingCart {
 
     public void printAllProducts(){
         for (Product product : products){
-            System.out.println(product + " Menge: " + product.getAmount());
+            System.out.println(product + " Amount: " + product.getAmount());
         }
     }
 
@@ -93,6 +93,7 @@ public class ShoppingCart {
                     System.out.println("Remove Product from Cart");
                 }else if(product.getStock() - product.getAmount() < -1){
                     System.out.println("Product " + product + " has missing stock of " + (product.getAmount() - product.getStock()) + " pieces.");
+                    System.out.println("Remove missing pieces to process the order.");
                 }
                 this.priceAfterDiscount -= product.getPrice() * product.getAmount();
             }
