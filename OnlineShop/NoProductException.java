@@ -2,7 +2,7 @@ package OnlineShop;
 
 public class NoProductException extends Exception{
 
-    public NoProductException(){
-        super("Product not available in Storage");
+    public NoProductException(Product product){
+        super("Product " + product + " not available in Storage");
     }
 }
