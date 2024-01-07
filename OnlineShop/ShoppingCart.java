@@ -83,33 +83,52 @@ public class ShoppingCart {
         discount();
     }
 
-    public void order(Konto konto){
+    private boolean checkForExceptions = true;
+
+    private void setCheckForExceptions(){
+        checkForExceptions = false;
+    }
+
+    private boolean getCheckForException(){
+        return checkForExceptions;
+    }
+
+    private boolean checkStocksAndProducts(){
         for (Product product : products) {
             try{
                 storage.getAvailibility(product);
             }catch (NoStockException e){
-                if((product.getStock() - product.getAmount()) == -1){
-                    System.out.println("Order could not be processed: Product " + product + " not available");
-                    System.out.println("Remove Product from Cart");
-                }else if(product.getStock() - product.getAmount() < -1){
-                    System.out.println("Product " + product + " has missing stock of " + (product.getAmount() - product.getStock()) + " pieces.");
-                    System.out.println("Remove missing pieces to process the order.");
-                }
-                this.priceAfterDiscount -= product.getPrice() * product.getAmount();
+                // nach Lagerbestand gucken
+                System.out.println("Product " + product + " has missing stock of " + (product.getAmount() - product.getStock()) + " pieces.");
+                System.out.println("Remove missing pieces to process the order.");
+                setCheckForExceptions();
+                // this.priceAfterDiscount -= product.getPrice() * (product.getAmount() - product.getStock());
+            }catch (NoProductException e){
+                // gucken ob es Produkt im Lager gibt, wenn nicht dann Produkt nicht vorhanden
+                System.out.println("Order could not be processed: Product " + product + " not available in storage.");
+                System.out.println("Remove Product from Cart");
+                setCheckForExceptions();
+                // this.priceAfterDiscount -= product.getPrice() * product.getAmount();
             }
         }
-        try{
-            if(discount){
-                konto.payOut(this.getNewPrice());
-            }else{
-                konto.payOut(this.sumCart());
+        return getCheckForException();
+    }
+
+    public void order(Konto konto){ // nicht fertig
+        if(checkStocksAndProducts()){
+            try{
+                if(discount){
+                    konto.payOut(this.getNewPrice());
+                }else{
+                    konto.payOut(this.sumCart());
+                }
+                for (Product product : products) {
+                    this.storage.changeStock(product, -(product.getAmount()));
+                }
+                System.out.println("Order succesfully created! Thank you " + konto.getName() + " for your oder!");
+            } catch (InsufficientFundsException e) {
+                System.out.println("Not enough money on account!");
             }
-            for (Product product : products) {
-                this.storage.changeStock(product, -(product.getAmount()));
-            }
-            System.out.println("Order succesfully created! Thank you " + konto.getName() + " for your oder!");
-        } catch (InsufficientFundsException e) {
-            System.out.println("Not enough money on account!");
         }
     }
 
