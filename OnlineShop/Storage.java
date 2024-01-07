@@ -24,7 +24,7 @@ public class Storage implements Sorting {
                 }
             }
         }
-        throw new NoProductException();
+        throw new NoProductException(product);
     }
 
     public ArrayList<Product> getProducts(){
