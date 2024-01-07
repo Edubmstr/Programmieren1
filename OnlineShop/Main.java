@@ -17,8 +17,6 @@ public class Main {
         ShoppingCart cart1 = new ShoppingCart(storage1);
         Girokonto konto1 = new Girokonto(1, "Eduard Baumeister", 20000, 1000);
 
-
-
         cart1.addProduct(new Drinks("Cola", 4, 1.5, 1000), 1);
         storage1.addProducts(cart1.getProduct(4), 100);
         cart1.addProduct(product, 1);
