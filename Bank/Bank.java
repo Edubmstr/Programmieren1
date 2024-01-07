@@ -17,11 +17,12 @@ public class Bank {
         kontos.add(tagesgeld1);
         ExtendedBank bank1 = new ExtendedBank();
         bank1.addKonto(new Konto(6, "Moin Meister", 500));
-        bank1.getKonto(6).printInfo();
+        //bank1.getKonto(6).printInfo();
         Festgeld konto3 = new Festgeld(10, "Max",626282, 0.9, 8);
         konto3.getLost();
         Konto konto2 = new Girokonto(11, "Juli", 10000, 50);
         Girokonto girokonto33 = new Girokonto(33, "Max", 500, 5);
+        Konto konto4 = new Festgeld(11, "Hi", 20, 0.,0);
 
 
         if(konto1 instanceof Girokonto){
@@ -31,7 +32,7 @@ public class Bank {
         }
 
         for(Konto konto : kontos){
-            konto.printInfo();
+           // konto.printInfo();
         }
 
         konto1.payIn(30);
