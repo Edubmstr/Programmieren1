@@ -24,6 +24,7 @@ public class Main {
         cart1.addProduct(product, 1);
         cart1.addProduct(product1, 2);
         cart1.addProduct(product2, 3);
+        cart1.addProduct(drink1,10);
 
         product1.setStock(0);
 
@@ -37,7 +38,8 @@ public class Main {
 
         cart1.order(konto1);
 
-        cart1.removeProduct(product1);
+        //cart1.removeProduct(product1);
+        cart1.setAmountInCart(product1, 0);
         System.out.println(cart1.getProducts());
 
         cart1.order(konto1);
