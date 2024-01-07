@@ -37,6 +37,8 @@ public class Konto {
         System.out.println("Saldo: " + saldo);
     }
 
+
+
     public int getNummer(){
         return this.nummer;
     }
