@@ -25,6 +25,9 @@ public class ShoppingCart {
 
     public void removeProduct(Product product){
         this.products.remove(product);
+        setCheckForExceptions(true);
+        this.priceAfterDiscount = 0;
+        discount();
     }
 
     public void setStorage(Storage storage){
@@ -37,6 +40,17 @@ public class ShoppingCart {
             sum += product.getPrice() * product.getAmount();
         }
         return sum;
+    }
+
+    public void setAmountInCart(Product product, int amount){
+        if (amount == 0) {
+            removeProduct(product);
+        }else{
+            product.setAmount(amount);
+            setCheckForExceptions(true);
+            this.priceAfterDiscount = 0;
+            discount();
+        }
     }
 
     public ArrayList<Product> getProducts(){
@@ -85,8 +99,8 @@ public class ShoppingCart {
 
     private boolean checkForExceptions = true;
 
-    private void setCheckForExceptions(){
-        checkForExceptions = false;
+    private void setCheckForExceptions(boolean bool){
+        checkForExceptions = bool;
     }
 
     private boolean getCheckForException(){
@@ -101,13 +115,13 @@ public class ShoppingCart {
                 // nach Lagerbestand gucken
                 System.out.println("Product " + product + " has missing stock of " + (product.getAmount() - product.getStock()) + " pieces.");
                 System.out.println("Remove missing pieces to process the order.");
-                setCheckForExceptions();
+                setCheckForExceptions(false);
                 // this.priceAfterDiscount -= product.getPrice() * (product.getAmount() - product.getStock());
             }catch (NoProductException e){
                 // gucken ob es Produkt im Lager gibt, wenn nicht dann Produkt nicht vorhanden
-                System.out.println("Order could not be processed: Product " + product + " not available in storage.");
+                System.out.println(e.getMessage());
                 System.out.println("Remove Product from Cart");
-                setCheckForExceptions();
+                setCheckForExceptions(false);
                 // this.priceAfterDiscount -= product.getPrice() * product.getAmount();
             }
         }
