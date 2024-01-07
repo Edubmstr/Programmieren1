@@ -14,11 +14,21 @@ public class Storage implements Sorting {
         product.setStock(stock);
     }
 
-    public boolean getAvailibility(Product product) throws NoStockException{
-        if(!(product.getAvailable())){
-            throw new NoStockException();
+    public boolean getAvailibility(Product product) throws NoStockException, NoProductException{// abfragen ob Produkt überhaupt im Lager vorhanden ist
+        for (Product product1 : stock){
+            if(product1.getID() == product.getID()){
+                if(!(product.getAvailable())){
+                    throw new NoStockException();
+                }else{
+                    return product1.getAvailable();
+                }
+            }
         }
-        return product.getAvailable();
+        throw new NoProductException();
+    }
+
+    public ArrayList<Product> getProducts(){
+        return this.stock;
     }
 
     public void changeStock(Product product,int change){
