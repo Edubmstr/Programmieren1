@@ -7,6 +7,8 @@ public class Main {
         Phone product = new Phone("IPhone 15", 1, 1200);
         Phone product1 = new Phone("S23 Ultra", 2, 1300);
         Drinks product2 = new Drinks("Wasser", 3, 0.50, 500);
+        Drinks drink1 = new Drinks("Fanta", 5, 0.75, 1500);
+
         Storage storage1 = new Storage();
         storage1.addProducts(product, 20);
         storage1.addProducts(product1, 50);
@@ -36,6 +38,7 @@ public class Main {
         cart1.order(konto1);
 
         cart1.removeProduct(product1);
+        System.out.println(cart1.getProducts());
 
         cart1.order(konto1);
 
