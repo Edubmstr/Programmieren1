@@ -25,7 +25,7 @@ public class Bank {
         Konto konto4 = new Festgeld(11, "Hi", 20, 0.,0);
 
 
-        if(konto1 instanceof Girokonto){
+        if(konto4 instanceof Festgeld){
             System.out.println("lol");
         }else{
             System.out.println("Nein");
