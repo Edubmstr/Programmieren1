@@ -1,4 +1,4 @@
-/*package Neu;
+package Neu;
 
 import java.util.ArrayList;
 
@@ -10,8 +10,8 @@ public class Student {
    public final Student PREV_STUDENT;
 
    public University university;
-   public int semester = 0;
-   public int age = 0;
+   public int semester;
+   public int age;
    public static int count = 0;
    private static float sumAge = 0;
    public Lecture lecture;
@@ -60,7 +60,7 @@ ArrayList<Lecture> lectures = new ArrayList<>();
        this.university = university;
    }
 
-   /* public String getUniversity(){
+   public String getUniversityName(){
        return this.university.name;
    }
 
@@ -74,12 +74,15 @@ ArrayList<Lecture> lectures = new ArrayList<>();
    }
 
    public void removeLecture(Lecture lecture){
-        lectures.remove(lectures);
+        lectures.remove(lecture);
         lecture.removeStudent(this);
    }
 
    public ArrayList<Lecture> getLectures(){
        return lectures;
    }
+
+   public int getAge(){
+       return this.age;
+   }
 }
-*/

@@ -6,7 +6,7 @@ import Bank.Konto;
 import java.util.ArrayList;
 
 public class ShoppingCart {
-    private ArrayList<Product> products = new ArrayList<>();
+    private final ArrayList<Product> products = new ArrayList<>();
     private boolean discount = false;
     private double discountPercentage;
 
@@ -25,6 +25,9 @@ public class ShoppingCart {
 
     public void removeProduct(Product product){
         this.products.remove(product);
+        setCheckForExceptions(true);
+        this.priceAfterDiscount = 0;
+        discount();
     }
 
     public void setStorage(Storage storage){
@@ -39,8 +42,25 @@ public class ShoppingCart {
         return sum;
     }
 
+    public void setAmountInCart(Product product, int amount){
+        if (amount == 0) {
+            removeProduct(product);
+        }else{
+            product.setAmount(amount);
+            setCheckForExceptions(true);
+            this.priceAfterDiscount = 0;
+            discount();
+        }
+    }
+
     public ArrayList<Product> getProducts(){
-        return this.products; //maybe umschreiben damit amount mitreinkommt
+        return this.products;
+    }
+
+    public void printAllProducts(){
+        for (Product product : products){
+            System.out.println(product + " Amount: " + product.getAmount());
+        }
     }
 
     public Product getProduct(int id){
@@ -67,7 +87,7 @@ public class ShoppingCart {
         this.priceAfterDiscount += (product.getPrice() * product.getAmount()) * (1 - (discountPercentage / 100));
     }
 
-    private double getNewPrice(){
+    public double getNewPrice(){
         return priceAfterDiscount;
     }
 
@@ -77,33 +97,52 @@ public class ShoppingCart {
         discount();
     }
 
-    public void order(Konto konto){
+    private boolean checkForExceptions = true;
+
+    private void setCheckForExceptions(boolean bool){
+        checkForExceptions = bool;
+    }
+
+    private boolean getCheckForException(){
+        return checkForExceptions;
+    }
+
+    private boolean checkStocksAndProducts(){
         for (Product product : products) {
             try{
                 storage.getAvailibility(product);
             }catch (NoStockException e){
-                if((product.getStock() - product.getAmount()) == -1){
-                    System.out.println("Order could not be processed: Product " + product + " not available");
-                    System.out.println("Remove Product from Cart");
-                }else if(product.getStock() - product.getAmount() < -1){
-                    System.out.println("Vom Artikel " + product + " fehlen " + (product.getAmount() - product.getStock()) + " Stück.");
-                }
-                this.priceAfterDiscount -= product.getPrice() * product.getAmount();
+                // nach Lagerbestand gucken
+                System.out.println("Product " + product + " has missing stock of " + (product.getAmount() - product.getStock()) + " pieces.");
+                System.out.println("Remove missing pieces to process the order.");
+                setCheckForExceptions(false);
+                // this.priceAfterDiscount -= product.getPrice() * (product.getAmount() - product.getStock());
+            }catch (NoProductException e){
+                // gucken ob es Produkt im Lager gibt, wenn nicht dann Produkt nicht vorhanden
+                System.out.println(e.getMessage());
+                System.out.println("Remove Product from Cart");
+                setCheckForExceptions(false);
+                // this.priceAfterDiscount -= product.getPrice() * product.getAmount();
             }
         }
-        try{
-            if(discount){
-                konto.payOut(this.getNewPrice());
-            }else{
-                konto.payOut(this.sumCart());
-            }
-            for (Product product : products) {
-                this.storage.changeStock(product, -(product.getAmount()));
-            }
-            System.out.println("Order succesfully created! Thank you " + konto.getName() + " for your oder!");
-        } catch (InsufficientFundsException e) {
-            System.out.println("Not enough money on account!");
-        }
+        return getCheckForException();
     }
 
+    public void order(Konto konto){ // nicht fertig
+        if(checkStocksAndProducts()){
+            try{
+                if(discount){
+                    konto.payOut(this.getNewPrice());
+                }else{
+                    konto.payOut(this.sumCart());
+                }
+                for (Product product : products) {
+                    this.storage.changeStock(product, -(product.getAmount()));
+                }
+                System.out.println("Order succesfully created! Thank you " + konto.getName() + " for your oder!");
+            } catch (InsufficientFundsException e) {
+                System.out.println("Not enough money on account!");
+            }
+        }
+    }
 }

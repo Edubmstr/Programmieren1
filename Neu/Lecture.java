@@ -1,12 +1,10 @@
-/*package Neu;
+package Neu;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
 public class Lecture {
 
-    String wort;
     public String name;
     public Instructor instructor;
     public ArrayList<Student> students = new ArrayList<>();
@@ -39,4 +37,4 @@ public class Lecture {
     }
 }
 
- */
+

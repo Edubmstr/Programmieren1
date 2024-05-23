@@ -1,4 +1,4 @@
-/*package Neu;
+package Neu;
 
 import java.util.ArrayList;
 
@@ -21,4 +21,3 @@ public class Instructor {
         return this.firstName + " " + this.lastName;
     }
 }
-*/

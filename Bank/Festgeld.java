@@ -17,4 +17,8 @@ public class Festgeld extends Sparkonto{
     public void getLost(){
 
     }
+
+    public String toString(){
+        return this.name;
+    }
 }
