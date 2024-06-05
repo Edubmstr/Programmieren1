@@ -5,5 +5,6 @@ public interface Flying {
     void land();
     void descend();
     void ascend();
-    final int [] numbers = {1, 2, 3};    
+    static final int [] numbers = {1, 2, 3};   
+    int number = 3; 
 }

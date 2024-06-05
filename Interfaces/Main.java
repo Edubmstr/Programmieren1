@@ -3,8 +3,12 @@ package Interfaces;
 public class Main implements Flying{
     public static void main(String[] args) {
 
-        Flying.numbers[2] = 3;
-        
+        Flying.numbers[2] = 5;
+        final int [] numbers = {1,2,3};
+        numbers[1] = 0;
+
+        // Flying.number = 3;
+        System.out.println(Flying.numbers[2]);
     }
 
     @Override
