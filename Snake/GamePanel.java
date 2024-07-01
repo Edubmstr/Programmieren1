@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		this.setFocusable(true);
 		this.addKeyListener(new MyKeyAdapter());
         this.add(restart());
+		this.setLayout(null);
 		startGame();
 	}
 	public void startGame() {
@@ -68,7 +69,7 @@ public class GamePanel extends JPanel implements ActionListener{
 					g.setColor(new Color(45,180,0));
 					//g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
 					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-				}			
+				}
 			}
 			g.setColor(Color.red);
 			g.setFont( new Font("Ink Free",Font.BOLD, 40));
@@ -166,11 +167,29 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	private JButton restart(){
-		restart = new JButton("Restart");;
+		restart = new JButton();/*{
+			@Override
+            protected void paintBorder(Graphics g) {
+                g.setColor(Color.WHITE);
+                g.drawRoundRect(0, 0, getSize().width - 1, getSize().height - 1, 20, 20);
+            }
+		};*/
 		restart.setVisible(false);
-		restart.setLocation(0,500);
-		restart.setBorderPainted(false);
-		restart.setBackground(Color.red);
+		restart.setSize(150, 50);
+		restart.setLocation(575,400);
+		restart.setFont(new Font("Arial", Font.BOLD, 20));
+		restart.setText("Restart");
+		//restart.setBorderPainted(false);
+		//restart.setBackground(Color.red);
+		restart.setBackground(Color.GREEN); // setzt die Hintergrundfarbe auf Rot
+        restart.setForeground(Color.WHITE); // setzt die Schriftfarbe auf Weiß
+        restart.setOpaque(true);
+        restart.setBorderPainted(false);
+		//restart.setBorder(new javax.swing.border.LineBorder(Color.red, 1, true));
+		//restart.setContentAreaFilled(false);
+		//restart.setBackground(Color.RED); // setzt die Hintergrundfarbe auf Rot
+        //restart.setForeground(Color.WHITE);
+		restart.setFocusPainted(false);
 		// restart.setForeground(Color.blue);
         var that = this;
         restart.addActionListener(new ActionListener() {
